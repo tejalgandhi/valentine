@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Be My Valentine ❤️</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(135deg,#ffdde1,#ee9ca7);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: white;
+            width: 340px;
+            height: 250px;
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+
+        h2 { color:#e63946; margin:10px 0; }
+        p { color:#555; font-size:14px; }
+
+        .countdown {
+            font-weight: bold;
+            color:#e63946;
+            margin: 10px 0;
+        }
+
+        .btn {
+            /*width: 20%;*/
+            padding: 14px;
+            border-radius: 25px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px 5px 10px 0;
+
+        }
+
+        .yes { background:#e63946; color:white; }
+        .no {
+            background:#adb5bd;
+            color:white;
+            position:absolute;
+        }
+
+        /* Hearts */
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 22px;
+            animation: float 6s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); opacity:1; }
+            to { transform: translateY(-120vh); opacity:0; }
+        }
+
+        /* Fireworks */
+        .firework {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            from { transform: scale(1); opacity:1; }
+            to { transform: scale(25); opacity:0; }
+        }
+
+        /* Slideshow */
+        .slideshow {
+            display: none;
+        }
+
+        .slideshow img {
+            width: 100%;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 🎶 Punjabi / Bollywood Music -->
+<audio id="music" loop>
+    <source src="https://pagalworld.com.se/files/download/id/6507" type="audio/mpeg">
+</audio>
+
+<div class="card" onclick="playMusic()">
+    <h2 id="title">Will you be my Valentine? 💖</h2>
+    <p id="subtitle">Choose wisely… 😉</p>
+
+    <div class="countdown" id="countdown"></div>
+
+    <button class="btn yes" onclick="yesClicked()">YES! 💕</button>
+    <button class="btn no" id="noBtn">NO 😜</button>
+
+    <!-- Slideshow -->
+    <div class="slideshow" id="slideshow">
+        <img id="slideImg" src="">
+        <p>Our memories 💞</p>
+    </div>
+</div>
+
+<script>
+
+    /* 🎶 Music */
+    function playMusic() {
+        document.getElementById("music").play();
+    }
+
+    /* 😈 Moving NO button */
+    const noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener("mouseover", () => {
+        noBtn.style.left = Math.random()*80 + "vw";
+        noBtn.style.top = Math.random()*80 + "vh";
+    });
+
+    /* 💓 Hearts */
+    setInterval(() => {
+        const h = document.createElement("div");
+        h.className = "heart";
+        h.innerHTML = "💖";
+        h.style.left = Math.random()*100 + "vw";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 6000);
+    }, 350);
+
+    /* ⏳ Countdown */
+    const vd = new Date("February 14, 2026 00:00:00").getTime();
+    setInterval(() => {
+        const now = new Date().getTime();
+        const d = vd - now;
+        document.getElementById("countdown").innerHTML =
+            `⏳ ${Math.floor(d/86400000)} days left`;
+    }, 1000);
+
+    /* 🔥 Fireworks */
+    function fireworks() {
+        for(let i=0;i<20;i++){
+            const f = document.createElement("div");
+            f.className = "firework";
+            f.style.left = Math.random()*100 + "vw";
+            f.style.top = Math.random()*100 + "vh";
+            f.style.background = "hsl(" + Math.random()*360 + ",100%,50%)";
+            document.body.appendChild(f);
+            setTimeout(() => f.remove(), 1000);
+        }
+    }
+    /* 💍 YES Clicked */
+    function yesClicked() {
+        fireworks();
+
+        document.getElementById("title").innerHTML = "She said YES 💍💖";
+        document.getElementById("subtitle").innerHTML =
+            "Will you marry me someday? 😍";
+
+        // Show slideshow
+        document.getElementById("slideshow").style.display = "block";
+
+        // Send email
+        // window.location.href =
+        //     "mailto:YOUR_EMAIL?subject=She%20said%20YES%20💍&body=YES!%20I%20choose%20you%20forever%20💕";
+
+    }
+
+    /* 📸 Slideshow Images */
+    // const images = [
+    //     "https://picsum.photos/300/200?1",
+    //     "https://picsum.photos/300/200?2",cd
+    //     "https://picsum.photos/300/200?3"
+    // ];
+    const images = [
+        "images/image_1.jpeg",
+        "images/image_2.jpeg",
+        "images/image_3.jpeg",
+        "images/image_4.jpeg"
+    ];
+
+
+    let index = 0;
+    setInterval(() => {
+        const img = document.getElementById("slideImg");
+        if(img) {
+            img.src = images[index];
+            index = (index + 1) % images.length;
+        }
+    }, 2000);
+</script>
+
+</body>
+</html>
