@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Send Valentine 💌</title>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("AEBhaN_D3FShDpCQY");
+        })();
+    </script>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg,#ffdde1,#ee9ca7);
+            font-family: Arial, sans-serif;
+        }
+
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,.25);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            background: #e63946;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Send Valentine 💖</h2>
+    <p>Enter partner’s email</p>
+
+    <input type="email" id="email" placeholder="partner@gmail.com" required>
+    <button onclick="sendEmail()">Send 💌</button>
+</div>
+
+<script>
+    function sendEmail() {
+        const email = document.getElementById("email").value;
+        console.log(email)
+        emailjs.send("service_3yobrda", "template_fwn1bne", {
+            to_email: email,
+            valentine_link: "https://tejalgandhi.github.io/valentine/"
+        })
+            .then(() => {
+                alert("Email sent 💖");
+            })
+            .catch(err => {
+                alert("Failed to send email 😢");
+                console.error(err);
+            });
+    }
+</script>
+
+</body>
+</html>
